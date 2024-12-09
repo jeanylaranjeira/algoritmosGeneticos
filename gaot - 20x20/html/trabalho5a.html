@@ -1,0 +1,157 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>trabalho5a</title><meta name="generator" content="MATLAB 8.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2024-10-24"><meta name="DC.source" content="trabalho5a.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput">x = linspace(-100, 100, 100); <span class="comment">% Dom&iacute;nio de x</span>
+y = linspace(-100, 100, 100); <span class="comment">% Dom&iacute;nio de y</span>
+[X, Y] = meshgrid(x, y);       <span class="comment">% Criar malha de pontos</span>
+numerator = (sin(sqrt(X.^2 + Y.^2)).^2 - 0.5);
+denominator = (1 + 0.001 * (X.^2 + Y.^2)).^2;
+F6 = 0.5 - (numerator ./ denominator);
+
+figure;
+<span class="comment">% Gr&aacute;fico 3: Gr&aacute;fico de Superf&iacute;cie com Transpar&ecirc;ncia</span>
+subplot(2, 2, 1);
+surf(X, Y, F6, <span class="string">'FaceAlpha'</span>, 0.5);  <span class="comment">% Ajustar a transpar&ecirc;ncia da superf&iacute;cie</span>
+title(<span class="string">'Fun&ccedil;&atilde;o F6(x, y) com Transpar&ecirc;ncia'</span>);
+xlabel(<span class="string">'X'</span>);
+ylabel(<span class="string">'Y'</span>);
+zlabel(<span class="string">'F6(x, y)'</span>);
+shading <span class="string">interp</span>;                    <span class="comment">% Interpola&ccedil;&atilde;o de cores</span>
+colorbar;
+<span class="comment">% Gr&aacute;fico 2: Gr&aacute;fico de malha</span>
+subplot(2, 2, 2);
+mesh(X, Y, F6);
+title(<span class="string">'Gr&aacute;fico de Malha da Fun&ccedil;&atilde;o F6(x, y)'</span>);
+xlabel(<span class="string">'X'</span>);
+ylabel(<span class="string">'Y'</span>);
+zlabel(<span class="string">'F6(x, y)'</span>);
+<span class="comment">% Gr&aacute;fico 3: Gr&aacute;fico de contorno</span>
+subplot(2, 2, 3);
+contour(X, Y, F6, 50);
+title(<span class="string">'Gr&aacute;fico de Contorno da Fun&ccedil;&atilde;o F6(x, y)'</span>);
+xlabel(<span class="string">'X'</span>);
+ylabel(<span class="string">'Y'</span>);
+colorbar;
+<span class="comment">% Gr&aacute;fico 4: Gr&aacute;fico de superf&iacute;cie</span>
+subplot(2, 2, 4);
+surf(X, Y, F6);        <span class="comment">% Gr&aacute;fico de superf&iacute;cie</span>
+hold <span class="string">on</span>;
+contour3(X, Y, F6, 20, <span class="string">'LineColor'</span>, <span class="string">'k'</span>);  <span class="comment">% Gr&aacute;fico de contorno sobreposto</span>
+title(<span class="string">'Combina&ccedil;&atilde;o de Superf&iacute;cie e Contorno da Fun&ccedil;&atilde;o F6(x, y)'</span>);
+xlabel(<span class="string">'X'</span>);
+ylabel(<span class="string">'Y'</span>);
+zlabel(<span class="string">'F6(x, y)'</span>);
+shading <span class="string">interp</span>;
+colorbar;
+</pre><img vspace="5" hspace="5" src="trabalho5a_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+x = linspace(-100, 100, 100); % Domínio de x
+y = linspace(-100, 100, 100); % Domínio de y
+[X, Y] = meshgrid(x, y);       % Criar malha de pontos
+numerator = (sin(sqrt(X.^2 + Y.^2)).^2 - 0.5);
+denominator = (1 + 0.001 * (X.^2 + Y.^2)).^2;
+F6 = 0.5 - (numerator ./ denominator);
+
+figure;
+% Gráfico 3: Gráfico de Superfície com Transparência
+subplot(2, 2, 1);
+surf(X, Y, F6, 'FaceAlpha', 0.5);  % Ajustar a transparência da superfície
+title('Função F6(x, y) com Transparência');
+xlabel('X');
+ylabel('Y');
+zlabel('F6(x, y)');
+shading interp;                    % Interpolação de cores
+colorbar;
+% Gráfico 2: Gráfico de malha
+subplot(2, 2, 2);
+mesh(X, Y, F6);
+title('Gráfico de Malha da Função F6(x, y)');
+xlabel('X');
+ylabel('Y');
+zlabel('F6(x, y)');
+% Gráfico 3: Gráfico de contorno
+subplot(2, 2, 3);
+contour(X, Y, F6, 50);
+title('Gráfico de Contorno da Função F6(x, y)');
+xlabel('X');
+ylabel('Y');
+colorbar;
+% Gráfico 4: Gráfico de superfície
+subplot(2, 2, 4);
+surf(X, Y, F6);        % Gráfico de superfície
+hold on;
+contour3(X, Y, F6, 20, 'LineColor', 'k');  % Gráfico de contorno sobreposto
+title('Combinação de Superfície e Contorno da Função F6(x, y)');
+xlabel('X');
+ylabel('Y');
+zlabel('F6(x, y)');
+shading interp;
+colorbar;
+
+##### SOURCE END #####
+--></body></html>
