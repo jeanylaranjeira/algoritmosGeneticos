@@ -1,37 +1,37 @@
-% Script principal para rodar o algoritmo genético (GA) com trajetórias de landmarks
+% Script principal para rodar o algoritmo genÃ©tico (GA) com trajetÃ³rias de landmarks
 clear; clc;
 
-% Configurações gerais
-numGenerations = 200;      % Número de gerações aumentadas
-populationSize = 500;      % Tamanho da população
-mutationRate = 0.1;        % Taxa de mutação aumentada
+% ConfiguraÃ§Ãµes gerais
+numGenerations = 50;      % NÃºmero de geraÃ§Ãµes aumentadas
+populationSize = 100;      % Tamanho da populaÃ§Ã£o
+mutationRate = 0.1;        % Taxa de mutaÃ§Ã£o aumentada
 crossoverRate = 0.7;       % Taxa de crossover
-numLandmarks = 81;         % Número total de landmarks (9x9)
+numLandmarks = 81;         % NÃºmero total de landmarks (9x9)
 
-% Limites de cada variável (índices dos landmarks)
-bounds = [1 numLandmarks]; % Índices válidos para landmarks
+% Limites de cada variÃ¡vel (Ã­ndices dos landmarks)
+bounds = [1 numLandmarks]; % Ãndices vÃ¡lidos para landmarks
 
-% Opções do GA
-gaOpts = [1e-6 0 1];       % [precisão, binário/float, exibição]
+% OpÃ§Ãµes do GA
+gaOpts = [1e-6 0 1];       % [precisÃ£o, binÃ¡rio/float, exibiÃ§Ã£o]
 
-% Inicialização da população
+% InicializaÃ§Ã£o da populaÃ§Ã£o
 startPop = initializega(populationSize, bounds, 'gaMichEval', [], gaOpts);
 
-% Separar trajetórias e aptidões
-trajectories = startPop(:, 1:end-1); % Exclui a última coluna (aptidão)
-fitnessValues = startPop(:, end);    % Última coluna contém os valores de aptidão
+% Separar trajetÃ³rias e aptidÃµes
+trajectories = startPop(:, 1:end-1); % Exclui a Ãºltima coluna (aptidÃ£o)
+fitnessValues = startPop(:, end);    % Ãšltima coluna contÃ©m os valores de aptidÃ£o
 
-% Configurações dos operadores do GA
+% ConfiguraÃ§Ãµes dos operadores do GA
 xFns = 'simpleXover';        % Operador de crossover
 xOpts = [crossoverRate];     % Taxa de crossover
-mFns = 'binaryMutation';     % Operador de mutação
-mOpts = [mutationRate];      % Taxa de mutação
-termFns = 'maxGenTerm';      % Critério de término
-termOps = [numGenerations];  % Número de gerações
-selectFn = 'roulette';       % Método de seleção
-selectOps = [];              % Sem parâmetros adicionais para seleção
+mFns = 'binaryMutation';     % Operador de mutaÃ§Ã£o
+mOpts = [mutationRate];      % Taxa de mutaÃ§Ã£o
+termFns = 'maxGenTerm';      % CritÃ©rio de tÃ©rmino
+termOps = [numGenerations];  % NÃºmero de geraÃ§Ãµes
+selectFn = 'roulette';       % MÃ©todo de seleÃ§Ã£o
+selectOps = [];              % Sem parÃ¢metros adicionais para seleÃ§Ã£o
 
-% Inicia o cronômetro para a execução do GA
+% Inicia o cronÃ´metro para a execuÃ§Ã£o do GA
 tic;
 
 % Executar o GA
@@ -39,62 +39,62 @@ tic;
     startPop, gaOpts, termFns, termOps, selectFn, selectOps, ...
     xFns, xOpts, mFns, mOpts);
 
-% Imprime o tempo de execução
+% Imprime o tempo de execuÃ§Ã£o
 tempoExecucaoGA = toc;
-disp(['Tempo de execução do Algoritmo Genético: ', num2str(tempoExecucaoGA), ' segundos']);
+disp(['Tempo de execuÃ§Ã£o do Algoritmo GenÃ©tico: ', num2str(tempoExecucaoGA), ' segundos']);
 
 pause
 
-% Exibir a melhor solução encontrada
+% Exibir a melhor soluÃ§Ã£o encontrada
 disp('Melhor solucaoo encontrada:');
-bestTrajectory = x(:, 1:end-1);  % Melhor trajetória
+bestTrajectory = x(:, 1:end-1);  % Melhor trajetÃ³ria
 cleanedTrajectory = bestTrajectory(bestTrajectory > 0); % Remove zeros
 disp('Trajetoria (sequencia de landmarks):');
 disp(cleanedTrajectory);
 
 pause
 
-% Avaliar a aptidão da melhor trajetória
+% Avaliar a aptidÃ£o da melhor trajetÃ³ria
 [~, fitnessValue] = gaMichEval(cleanedTrajectory, []);
-disp('Valor da aptidão da melhor solução:');
-disp(-1 / fitnessValue); % Remove negatividade da aptidão
+disp('Valor da aptidÃ£o da melhor soluÃ§Ã£o:');
+disp(-1 / fitnessValue); % Remove negatividade da aptidÃ£o
 pause
 
-% Número de landmarks visitados
+% NÃºmero de landmarks visitados
 numLandmarksVisited = length(cleanedTrajectory);
-disp('Número de landmarks visitados:');
+disp('NÃºmero de landmarks visitados:');
 disp(numLandmarksVisited);
 
 pause
 
-% Gráfico da trajetória da melhor solução
-gridSize = 9;  % Dimensão da matriz de landmarks
+% GrÃ¡fico da trajetÃ³ria da melhor soluÃ§Ã£o
+gridSize = 9;  % DimensÃ£o da matriz de landmarks
 [xCoord, yCoord] = ind2sub([gridSize, gridSize], cleanedTrajectory); % Coordenadas (x, y)
 
 figure;
 plot(xCoord, yCoord, 'b-o', 'LineWidth', 2);
 hold on;
-scatter(xCoord, yCoord, 'r', 'filled'); % Posição dos pontos
-title('Melhor Trajetória Encontrada');
+scatter(xCoord, yCoord, 'r', 'filled'); % PosiÃ§Ã£o dos pontos
+title('Melhor TrajetÃ³ria Encontrada');
 xlabel('X (coluna)');
 ylabel('Y (linha)');
 grid on;
 
-% Pausa para visualização da trajetória e número de landmarks
+% Pausa para visualizaÃ§Ã£o da trajetÃ³ria e nÃºmero de landmarks
 pause;
 
-% Gráfico da evolução da aptidão ao longo das gerações
+% GrÃ¡fico da evoluÃ§Ã£o da aptidÃ£o ao longo das geraÃ§Ãµes
 figure;
-plot(trace(:, 1), trace(:, 2), 'b-', 'LineWidth', 2); % Melhor aptidão
+plot(trace(:, 1), trace(:, 2), 'b-', 'LineWidth', 2); % Melhor aptidÃ£o
 hold on;
-plot(trace(:, 1), trace(:, 3), 'r--', 'LineWidth', 2); % Aptidão média
-title('Evolução da Aptidão ao Longo das Gerações');
-xlabel('Geração');
-ylabel('Aptidão');
-legend('Melhor Aptidão', 'Aptidão Média');
+plot(trace(:, 1), trace(:, 3), 'r--', 'LineWidth', 2); % AptidÃ£o mÃ©dia
+title('EvoluÃ§Ã£o da AptidÃ£o ao Longo das GeraÃ§Ãµes');
+xlabel('GeraÃ§Ã£o');
+ylabel('AptidÃ£o');
+legend('Melhor AptidÃ£o', 'AptidÃ£o MÃ©dia');
 grid on;
 
-% Distribuição Inicial das Trajetórias
+% DistribuiÃ§Ã£o Inicial das TrajetÃ³rias
 figure;
 hold on;
 for i = 1:size(trajectories, 1)
@@ -102,30 +102,30 @@ for i = 1:size(trajectories, 1)
     [xCoord, yCoord] = ind2sub([gridSize, gridSize], traj);
     plot(xCoord, yCoord, '-o', 'LineWidth', 1);
 end
-title('Trajetórias Iniciais');
+title('TrajetÃ³rias Iniciais');
 xlabel('X (coluna)');
 ylabel('Y (linha)');
 grid on;
 
-% Comparação: Trajetória Inicial x Trajetória Final
+% ComparaÃ§Ã£o: TrajetÃ³ria Inicial x TrajetÃ³ria Final
 figure;
-% Trajetória inicial
+% TrajetÃ³ria inicial
 initialBest = trajectories(1, trajectories(1, :) > 0); % Exemplo: melhor inicial
 [xInitial, yInitial] = ind2sub([gridSize, gridSize], initialBest);
 plot(xInitial, yInitial, 'g--o', 'LineWidth', 2); % Verde para inicial
 hold on;
 
-% Trajetória final
+% TrajetÃ³ria final
 [xFinal, yFinal] = ind2sub([gridSize, gridSize], bestTrajectory(bestTrajectory > 0));
 plot(xFinal, yFinal, 'b-o', 'LineWidth', 2); % Azul para final
 
-title('Comparação: Trajetória Inicial x Trajetória Final');
+title('ComparaÃ§Ã£o: TrajetÃ³ria Inicial x TrajetÃ³ria Final');
 xlabel('X (coluna)');
 ylabel('Y (linha)');
-legend('Trajetória Inicial', 'Trajetória Final');
+legend('TrajetÃ³ria Inicial', 'TrajetÃ³ria Final');
 grid on;
 
-% Mapa de Calor de Visitação
+% Mapa de Calor de VisitaÃ§Ã£o
 heatmap = zeros(gridSize);
 for i = 1:size(trajectories, 1)
     traj = trajectories(i, trajectories(i, :) > 0);
@@ -137,15 +137,15 @@ end
 figure;
 imagesc(heatmap);
 colorbar;
-title('Mapa de Calor de Visitação');
+title('Mapa de Calor de VisitaÃ§Ã£o');
 xlabel('X (coluna)');
 ylabel('Y (linha)');
 
-% Histograma de Comprimento das Trajetórias
+% Histograma de Comprimento das TrajetÃ³rias
 lengths = arrayfun(@(i) sum(trajectories(i, :) > 0), 1:size(trajectories, 1));
 figure;
 histogram(lengths, 'BinWidth', 1);
-title('Histograma de Comprimento das Trajetórias');
-xlabel('Comprimento da Trajetória');
-ylabel('Frequência');
+title('Histograma de Comprimento das TrajetÃ³rias');
+xlabel('Comprimento da TrajetÃ³ria');
+ylabel('FrequÃªncia');
 grid on;
